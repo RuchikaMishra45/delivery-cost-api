@@ -1,13 +1,15 @@
 from flask import Flask, request, jsonify
 from itertools import permutations
 
-@app.route('/')
-def index():
-    return "Delivery Cost API is running!"
-
+# ✅ Define Flask app first
 app = Flask(__name__)
 
-# Product data with weight and source
+# ✅ Then use route decorators
+@app.route('/')
+def index():
+    return "🚀 Delivery Cost API is running!"
+
+# Sample product data
 product_data = {
     'A': {'weight': 3, 'center': 'C1'},
     'B': {'weight': 2, 'center': 'C1'},
@@ -20,7 +22,7 @@ product_data = {
     'I': {'weight': 2, 'center': 'C3'}
 }
 
-# Distance between centers and L1
+# Distance between centers and location
 distances = {
     ('C1', 'L1'): 4,
     ('C2', 'L1'): 2.5,
@@ -30,6 +32,7 @@ distances = {
     ('C3', 'C1'): 2,
 }
 
+# Cost calculation function
 def calculate_cost(path, total_weight):
     total_distance = 0
     for i in range(len(path) - 1):
@@ -43,8 +46,8 @@ def calculate_cost(path, total_weight):
 
     return round(total_weight * cost_per_km * total_distance / total_weight)
 
+# API endpoint
 @app.route('/api/calculate-cost', methods=['GET', 'POST'])
-
 def calculate_delivery_cost():
     order = request.json
     centers_needed = set()
@@ -67,5 +70,6 @@ def calculate_delivery_cost():
 
     return jsonify({'minimum_cost': round(min_cost)})
 
+# Local dev server
 if __name__ == '__main__':
     app.run(debug=True)
