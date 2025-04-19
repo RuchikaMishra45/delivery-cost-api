@@ -39,7 +39,8 @@ def calculate_cost(path, total_weight):
 
     return round(total_weight * cost_per_km * total_distance / total_weight)
 
-@app.route('/api/calculate-cost', methods=['POST'])
+@app.route('/api/calculate-cost', methods=['GET', 'POST'])
+
 def calculate_delivery_cost():
     order = request.json
     centers_needed = set()
