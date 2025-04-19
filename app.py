@@ -1,6 +1,10 @@
 from flask import Flask, request, jsonify
 from itertools import permutations
 
+@app.route('/')
+def index():
+    return "Delivery Cost API is running!"
+
 app = Flask(__name__)
 
 # Product data with weight and source
